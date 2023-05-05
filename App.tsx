@@ -2,21 +2,44 @@ import * as React from 'react';
 import { useState } from 'react';
 import './style.css';
 
-function Counter() {
-  const [count, setCount] = useState(2)
-
+export default function App () {
   return (
     <div>
-      <p>Contador: {count}</p>
-      <button onClick={() => setCount(count => count + 2)}>Aumentar</button>
+      <h1>Lista de regalos</h1>
+      <GiftList />
+      <TotalGifts />
     </div>
   )
 }
 
-export default function App() {
+function GiftList () {
+  const [gifts, setGifts] = useState([])
+
+  const addGift = () => {
+    const newGift = prompt('¿Qué regalo quieres añadir?')
+    newGift?.length  ? setGifts([...gifts, newGift ]) : "No" 
+  }
+
   return (
     <div>
-      <Counter />
+      <h2>Regalos</h2>
+      <ul>
+        {gifts.map(gift => (
+          <li key={gift}>{gift}</li>
+        ))}
+      </ul>
+      <button onClick={addGift}>Añadir regalo</button>
     </div>
-  );
+  )
+}
+
+function TotalGifts () {
+  const [totalGifts, setTotalGifts] = useState(0)
+
+  return (
+    <div>
+      <h2>Total de regalos</h2>
+      <p>{totalGifts}</p>
+    </div>
+  )
 }
